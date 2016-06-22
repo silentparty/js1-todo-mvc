@@ -19,6 +19,35 @@ Here are some bonus tasks to push your DOM knowledge!
   - Instead of deleting it completely, move it to a second list called "Archive"
 
 */
+/*
+(function() {
+
+  var container = document.querySelector('#my-list')
+  var count = 0;
+
+  // The model
+  var state = {toDoItems:[]}
+
+  // The controller
+  delegate('#container', 'click', 'button' , function(event) {
+    var todoContent = document.querySelector('#new-thing').value;
+    if (todoContent) {
+      state.toDoItems.push(todoContent);
+      document.querySelector('#new-thing').value = '';
+    }
+    render(state, container);
+    count++;
+  })
+
+// The view
+  function render(data, into) {
+    into.innerHTML += `
+    <li class="list-thing">${data.toDoItems[count]}</li>
+    `
+  }
+
+})()
+*/
 
 
 
@@ -35,61 +64,20 @@ Here are some bonus tasks to push your DOM knowledge!
     var todoContent = document.querySelector('#new-thing').value;
     if (todoContent) {
       state.toDoItems.push(todoContent);
+      document.querySelector('#new-thing').value = "";
     }
     render(state, listContainer);
-    console.log(`State.toDoItems from delegate - ${state.toDoItems}`);
   });
 
-  // // The view
-  // function render(data, into) {
-  //   into.innerHTML = data.toDoItems.map(function(item, index) {
-  //     var content = `<li class="list-thing">${data.toDoItems}</li>`;
-  //     return content;
-  //   });
-  //   console.log('into.innerHTML from render - ' + into.innerHTML);
-  // }
 
   // The view
-  // function render(data, into) {
-  //   var renderReady = data.toDoItems.map(function(item) {
-  //     var content = `<li class="list-thing">${data.toDoItems}</li>`;
-  //     return content;
-  //   });
-  //
-  //   // listComponent.remove();
-  //   // container.innerHTML = `
-  //   // <div id="listComponent">
-  //   //   <ul id="my-list">
-  //   //   </ul>
-  //   //   <input id="new-thing" placeholder="Task goes here" />
-  //   //   <button>Add a thing</button>
-  //   // </div>
-  //   //   `;
-  //   renderReady.forEach(function (item, index) {
-  //     listContainer.innerHTML = item;
-  //   })
-  //   console.log(renderReady);
-  // }
+  function render(data, into) {
+    var renderReady = data.toDoItems.map(function(item, index) {
+      var content = `<li class="list-thing">${data.toDoItems[index]}</li>`;
+      return content;
+    });
+    var renderThis = renderReady.join("");
+    listContainer.innerHTML = renderThis;
+  }
 
 })()
-
-
-
-// (function() {
-//   var container = document.querySelector('#container')
-//   var state = {light: 'off', button: 'Turn On'}
-//
-//   delegate('#container', 'click', 'button', () => {
-//     if (state.light === 'on') {
-//       state.light = 'off'
-//       state.button = 'Turn On' } else {
-//       state.light = 'on'
-//       state.button = 'Turn Off'
-//     }
-//     render(state, container)
-// });
-//
-//   function render(data, into) {
-//     into.innerHTML = '<div id="light">' + data.light + '</div>' into.innerHTML += '<button>' + data.button + '</button>'
-//   }
-// })()
